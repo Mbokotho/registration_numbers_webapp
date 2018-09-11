@@ -10,16 +10,17 @@
 </div>
 
 <center>
-  <form class="" action=" /reg_numbers" method="post">
-
-  </form>
+  <form class="" action="/reg_numbers" method="post">
   <div class="row">
     <label for="">Please  Enter Registration Number </label>
-    <input type="text" name="" value="" placeholder="eg. CA 45569" class="Name">
-    <button class="button-primary addBtn" type="button" name="button">ADD</button>
-    <button class="button-primary resetBtn" type="button" name="button">RESET</button>
-  </div>
+    <input type="text" name="number" value="" placeholder="eg. CA 45569" >
+    <button class="button-primary" type="submit" name="button">ADD</button>
+  </div></form>
 
+  <center>{{#if messages.info}}
+      <h1> {{messages.info}}</h1>
+
+  {{/if}}</center>
 
   <input type="radio" name="Language" class="LanguageRadio" value="All ">
   <span class="label-body">All</span>
@@ -36,9 +37,22 @@
   <input type="radio" name="Language" class="LanguageRadio" value="CY ">
   <span class="label-body">Bellville</span></center>
 
-  <center><button class="button-primary showBtn" type="button" name="button">SHOW</button></center>
-</form>
+  <center><button class="submit" type="button" name="button">SHOW</button></center>
+
+
+<div class= "row">
+
+<table>
+    <tr>
+        <th>Registration Numbers</th>
+    </tr>
+
+    {{#each numbers}}
+        <tr>
+        <td>{{regNum}}</td>
+    </tr>
+    {{/each}}
+</table>
+</div>
 
   </div>
-
-</div>

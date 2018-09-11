@@ -27,13 +27,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mbokotho/greeting-webapp.git"
+    "url": "git+https://github.com/Mbokotho/registration_numbers_webapp.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Mbokotho/greeting-webapp.git"
+    "url": "https://github.com/Mbokotho/registration_numbers_webapp.git"
   },
-  "homepage": "https://github.com/Mbokotho/greeting-webapp.git"
+  "homepage": "https://github.com/Mbokotho/registration_numbers_webapp.git"
 }
