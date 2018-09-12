@@ -1,58 +1,55 @@
-<div class="container">
 
 
-<div class="row" id="header">
-  <div class="twelve columns">
-    <div>
+<center> <div>
       <h1 style="color:white;">Registration Numbers</h1>
-    </div>
-  </div>
+    </div></center>
+    
+  
+<div class="row">
+  <div class = "twelve columns">
+ <center> <form class="" action="/reg_numbers" method="post">
+    <label for="">Please  Enter Registration Number </label>
+    <input type="text" name="number" value="" placeholder="eg. CA 45569" ></div>
+    <button class="button-primary" type="submit" name="button">ADD</button>
+  </form></center>
+  <form class="" action="/clear" method="post" style="float: right;">
+      <button class="button-primary" type="submit" name="button"> Clear</button>
+</form>
 </div>
-
+{{!-- 
 <center>
   <form class="" action="/reg_numbers" method="post">
-  <div class="row">
     <label for="">Please  Enter Registration Number </label>
     <input type="text" name="number" value="" placeholder="eg. CA 45569" >
     <button class="button-primary" type="submit" name="button">ADD</button>
   </div></form>
+  </center> --}}
 
-  <center>{{#if messages.info}}
-      <h1> {{messages.info}}</h1>
 
-  {{/if}}</center>
-
+<center>
+<form class ="" action="/regnumbers" method="POST">
   <input type="radio" name="Language" class="LanguageRadio" value="All ">
   <span class="label-body">All</span>
-
 
   <input type="radio" name="Language" class="LanguageRadio" value="CA ">
   <span class="label-body">Cape Town</span>
 
-
   <input type="radio" name="Language" class="LanguageRadio" value="CJ ">
   <span class="label-body">Paarl</span>
-
 
   <input type="radio" name="Language" class="LanguageRadio" value="CY ">
   <span class="label-body">Bellville</span></center>
 
   <center><button class="submit" type="button" name="button">SHOW</button></center>
+</form></center>
 
-
-<div class= "row">
-
-<table>
-    <tr>
-        <th>Registration Numbers</th>
-    </tr>
-
-    {{#each numbers}}
-        <tr>
-        <td>{{regNum}}</td>
-    </tr>
+<div class="row" >
+  <div class="twelve columns">
+    {{#each registrationN}}
+      
+       <div class ="registration">{{reg}}</div>
+    
     {{/each}}
-</table>
-</div>
-
-  </div>
+    </div>
+    </div>
+  

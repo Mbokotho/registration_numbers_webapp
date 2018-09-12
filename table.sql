@@ -1,4 +1,5 @@
 
-create table Registrations(
+create table Reg(
   id serial primary key,
-    regNum text not null);
+    reg text not null,town_id text not null
+    );

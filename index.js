@@ -56,28 +56,29 @@ app.use(
 
 app.use(flash());
 
-app.get('/', function(req, res){
-    res.render('home');
+app.get('/', async function(req, res){
 
+     let number = await pool.query('Select reg from Reg ');
+     let registrationN = number.rows;
+    res.render('home', {registrationN});
 });
 
 app.post('/reg_numbers', async function (req, res){ 
-    
 const regNumber = req.body.number;
 let reg_Number = regNumber.toUpperCase();
 let regCode = reg_Number.substring(0, 3).trim();
 
 if(reg_Number.startsWith('CY ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW')){
     //   console.log(reg_Number);
-    let result = await pool.query('insert into Registrations (regNum) values ($1)', [reg_Number]);
+    let result = await pool.query('insert into Reg (reg,town_id) values ($1,$2)', [reg_Number,regCode]);
 }
-
-console.log(regCode);
-
-    res.render('home');
-
+    res.redirect('/');
 });
 
+app.post('/clear', async function (req, res) {
+    await pool.query('delete  from  Reg');
+    res.redirect('/');
+});
 let PORT = process.env.PORT || 3020;
 
 app.listen(PORT, function () {
