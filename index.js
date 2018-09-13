@@ -57,8 +57,7 @@ app.use(
 app.use(flash());
 
 app.get('/', async function(req, res){
-
-     let number = await pool.query('Select reg from Reg ');
+     let number = await pool.query('Select reg from reg ');
      let registrationN = number.rows;
     res.render('home', {registrationN});
 });
@@ -68,18 +67,21 @@ const regNumber = req.body.number;
 let reg_Number = regNumber.toUpperCase();
 let regCode = reg_Number.substring(0, 3).trim();
 
-if(reg_Number.startsWith('CY ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW')){
-    //   console.log(reg_Number);
-    let result = await pool.query('insert into Reg (reg,town_id) values ($1,$2)', [reg_Number,regCode]);
+if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW')){
+let result = await pool.query('SELECT * FROM reg WHERE reg=$1', [reg_Number])
+if (result.rowCount === 0) {
+  let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
+  result = await pool.query('INSERT INTO reg (reg, town_id) VALUES ($1, $2)', [reg_Number, TownId.rows[0].id]);
 }
-    res.redirect('/');
+  }  res.redirect('/');
 });
 
+
 app.post('/clear', async function (req, res) {
-    await pool.query('delete  from  Reg');
+    await pool.query('delete  from  reg');
     res.redirect('/');
 });
-let PORT = process.env.PORT || 3020;
+let PORT = process.env.PORT || 3010;
 
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);
