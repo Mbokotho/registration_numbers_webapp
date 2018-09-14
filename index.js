@@ -57,8 +57,26 @@ app.use(
 app.use(flash());
 
 app.get('/', async function(req, res){
-     let number = await pool.query('Select reg from reg ');
+    let Capetown = await pool.query('select id from towns where town_id =$1',['CA']);
+    console.log(Capetown);
+    rG = await pool.query('select reg from registrationNumbers where town_id =(7)')
+    console.log(rG.rows);
+     let number = await pool.query('Select reg from RegistrationNumbers');
+     let myTowns = await pool.query('select towns.town_name,RegistrationNumbers.reg from RegistrationNumbers inner join towns on RegistrationNumbers.town_id=towns.id;');
+    //  console.log(myTowns.rows);gistrationNumbers.
+         
+         for (var i=0;i< rG.rows.length;i++){
+         var currentTown = rG.rows[i];
+            console.log(rG.rows[i].reg);
+
+        }
+
+        //  }
+      
+       
+       
      let registrationN = number.rows;
+
     res.render('home', {registrationN});
 });
 
@@ -67,16 +85,35 @@ const regNumber = req.body.number;
 let reg_Number = regNumber.toUpperCase();
 let regCode = reg_Number.substring(0, 3).trim();
 
-if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW')){
-let result = await pool.query('SELECT * FROM reg WHERE reg=$1', [reg_Number])
+if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW ')){
+let result = await pool.query('SELECT * FROM RegistrationNumbers WHERE reg=$1', [reg_Number])
 if (result.rowCount === 0) {
   let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
-  result = await pool.query('INSERT INTO reg (reg, town_id) VALUES ($1, $2)', [reg_Number, TownId.rows[0].id]);
+  result = await pool.query('INSERT INTO RegistrationNumbers (reg, town_id) VALUES ($1, $2)', [reg_Number, TownId.rows[0].id]);
 }
   }  res.redirect('/');
 });
 
+app.post('/regnumbers', async function(req, res){
 
+});
+
+// function mostProfitableDay(Departmentlist){
+//     //console.log(Departmentlist);
+//    var DeptName = "";
+//    var Total = 0;
+     
+//      for (var i=0;i< Departmentlist.length;i++){
+//      var currentDept = Departmentlist[i];
+//        if (Total <= Departmentlist[i].total){
+//          Total = Departmentlist[i].total; 
+//          DeptName = currentDept.day;
+//      }
+//    // console.log(DeptName);
+//    }return  DeptName;  
+//      console.log(DeptName);
+//    }
+   
 app.post('/clear', async function (req, res) {
     await pool.query('delete  from  reg');
     res.redirect('/');

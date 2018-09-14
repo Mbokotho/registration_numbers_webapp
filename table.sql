@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS reg, towns;
+DROP TABLE IF EXISTS RegistrationNumbers, towns;
 
 create table towns(
     id serial not null primary key,
@@ -7,7 +7,7 @@ create table towns(
      );
 
 
-create table reg(
+create table RegistrationNumbers(
   id serial primary key,
  reg text not null,
  town_id int not null,

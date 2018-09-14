@@ -19,8 +19,7 @@ module.exports = function(pool) {
         reg_Number.startsWith("CY ") ||
         reg_Number.startsWith("CJ ") ||
         reg_Number.startsWith("CAW")
-      )  {
-          await getReg.putData (regNumber, regCode);
+    
       }
       res.redirect("/");
     } catch (err) {}
