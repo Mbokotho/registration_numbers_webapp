@@ -57,24 +57,8 @@ app.use(
 app.use(flash());
 
 app.get('/', async function(req, res){
-    let Capetown = await pool.query('select id from towns where town_id =$1',['CA']);
-    console.log(Capetown);
-    rG = await pool.query('select reg from registrationNumbers where town_id =(7)')
-    console.log(rG.rows);
-     let number = await pool.query('Select reg from RegistrationNumbers');
-     let myTowns = await pool.query('select towns.town_name,RegistrationNumbers.reg from RegistrationNumbers inner join towns on RegistrationNumbers.town_id=towns.id;');
-    //  console.log(myTowns.rows);gistrationNumbers.
-         
-         for (var i=0;i< rG.rows.length;i++){
-         var currentTown = rG.rows[i];
-            console.log(rG.rows[i].reg);
 
-        }
-
-        //  }
-      
-       
-       
+     let number = await pool.query('Select reg from RegistrationNumbers');  
      let registrationN = number.rows;
 
     res.render('home', {registrationN});
@@ -96,26 +80,51 @@ if (result.rowCount === 0) {
 
 app.post('/regnumbers', async function(req, res){
 
+    const myTown = req.body.Town;
+
+    if (myTown ==='CA') {
+    result = await pool.query('select id from towns where town_id=$1',['CA']);
+    let id = result.rows[0].id;
+    console.log(id);
+    const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+    console.log(mytowns.rows);
+    let registrationN = mytowns.rows;
+    res.render('home', {registrationN})
+    }  
+
+    if (myTown ==='CJ') {
+        result = await pool.query('select id from towns where town_id=$1',['CJ']);
+        let id = result.rows[0].id;
+        console.log(id);
+        const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+        console.log(mytowns.rows);
+        let registrationN = mytowns.rows;
+        res.render('home', {registrationN})
+        }  
+     
+
+        if (myTown ==='CAW') {
+            result = await pool.query('select id from towns where town_id=$1',['CAW']);
+            let id = result.rows[0].id;
+            console.log(id);
+            const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+            console.log(mytowns.rows);
+            let registrationN = mytowns.rows;
+            res.render('home', {registrationN})
+            }  
+         
+    if (myTown ==='All') {
+     let number = await pool.query('Select reg from RegistrationNumbers');  
+     let registrationN = number.rows;
+        res.render('home', {registrationN})
+        }  
+     
+  
+
 });
 
-// function mostProfitableDay(Departmentlist){
-//     //console.log(Departmentlist);
-//    var DeptName = "";
-//    var Total = 0;
-     
-//      for (var i=0;i< Departmentlist.length;i++){
-//      var currentDept = Departmentlist[i];
-//        if (Total <= Departmentlist[i].total){
-//          Total = Departmentlist[i].total; 
-//          DeptName = currentDept.day;
-//      }
-//    // console.log(DeptName);
-//    }return  DeptName;  
-//      console.log(DeptName);
-//    }
-   
 app.post('/clear', async function (req, res) {
-    await pool.query('delete  from  reg');
+    await pool.query('delete  from  RegistrationNumbers');
     res.redirect('/');
 });
 let PORT = process.env.PORT || 3010;

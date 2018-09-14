@@ -8,7 +8,7 @@ create table towns(
 
 
 create table RegistrationNumbers(
-  id serial primary key,
+  id serial primary key not null,
  reg text not null,
  town_id int not null,
  foreign key(town_id) references towns(id) ON DELETE CASCADE
