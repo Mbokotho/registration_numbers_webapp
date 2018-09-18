@@ -8,7 +8,7 @@ const session = require('express-session');
 const pg = require('pg');
 const Pool = pg.Pool;
 
-
+let regRoutes = require('./routes/registrations');
 
 let useSSL = false;
 let local = process.env.LOCAL || false;
@@ -55,31 +55,14 @@ app.use(
 );
 
 app.use(flash());
+let getReg = regRoutes(pool);
 
-app.get('/', async function(req, res){
+app.get('/', getReg.home);
+app.post('/reg_numbers', getReg.registrations);
 
-     let number = await pool.query('Select reg from RegistrationNumbers');  
-     let registrationN = number.rows;
-
-    res.render('home', {registrationN});
-});
-
-app.post('/reg_numbers', async function (req, res){ 
-const regNumber = req.body.number;
-let reg_Number = regNumber.toUpperCase();
-let regCode = reg_Number.substring(0, 3).trim();
-
-if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW ')){
-let result = await pool.query('SELECT * FROM RegistrationNumbers WHERE reg=$1', [reg_Number])
-if (result.rowCount === 0) {
-  let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
-  result = await pool.query('INSERT INTO RegistrationNumbers (reg, town_id) VALUES ($1, $2)', [reg_Number, TownId.rows[0].id]);
-}
-  }  res.redirect('/');
-});
-
-app.post('/regnumbers', async function(req, res){
-
+app.post('/regnumbers',
+async function(req, res){
+//
     const myTown = req.body.Town;
 
     if (myTown ==='CA') {
@@ -90,7 +73,7 @@ app.post('/regnumbers', async function(req, res){
     console.log(mytowns.rows);
     let registrationN = mytowns.rows;
     res.render('home', {registrationN})
-    }  
+    }
 
     if (myTown ==='CJ') {
         result = await pool.query('select id from towns where town_id=$1',['CJ']);
@@ -100,8 +83,8 @@ app.post('/regnumbers', async function(req, res){
         console.log(mytowns.rows);
         let registrationN = mytowns.rows;
         res.render('home', {registrationN})
-        }  
-     
+        }
+
 
         if (myTown ==='CAW') {
             result = await pool.query('select id from towns where town_id=$1',['CAW']);
@@ -111,17 +94,18 @@ app.post('/regnumbers', async function(req, res){
             console.log(mytowns.rows);
             let registrationN = mytowns.rows;
             res.render('home', {registrationN})
-            }  
-         
+            }
+
     if (myTown ==='All') {
-     let number = await pool.query('Select reg from RegistrationNumbers');  
+     let number = await pool.query('Select reg from RegistrationNumbers');
      let registrationN = number.rows;
         res.render('home', {registrationN})
-        }  
-     
-  
+        }
 
-});
+
+
+}
+);
 
 app.post('/clear', async function (req, res) {
     await pool.query('delete  from  RegistrationNumbers');

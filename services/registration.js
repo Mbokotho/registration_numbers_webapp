@@ -1,52 +1,38 @@
 module.exports = function (pool) {
+
     async function readData () {
-        let result = await pool.query('select * from Registrationz');
+        let result = await pool.query('select * from RegistrationNumbers');
         return result.rows;
     }
-    async function putData (regNumber, regCode) {
-        await pool.query('insert into Registrationz (regNumber,regCode) values ($1,$2)', [regNumber, regCode]);
-    }
+    async function putData (reg_Number,regCode) {
+        // let regCode = reg_Number.substring(0, 3).trim();
+        if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW ')){
+        let result = await pool.query('SELECT * FROM RegistrationNumbers WHERE reg=$1', [reg_Number])
+        if (result.rowCount === 0) {
+          let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
+          result = await pool.query('INSERT INTO RegistrationNumbers (reg, town_id) VALUES ($1, $2)', [reg_Number, TownId.rows[0].id]);
+        }
+    } return reg_Number;
 
-    // async function allCount () {
-    //     let result = await pool.query('select count(*) from Users');
-    //     return parseInt(result.rows[0].count);
-    // }
+  };
+async function   readTown(townId) {
 
-    // async function upData (Person, newCount, language) {
-    //     await pool.query('update Users set greeted_count =$1 ,language=$3 where username = $2', [newCount, Person, language]);
-    // }
+              result = await pool.query('select id from towns where town_id=$1',[townId]);
+              let id = result.rows[0].id;
+              console.log(id);
+              const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+              console.log(mytowns.rows);
+              let registrationN = mytowns.rows;
+              return registrationN;
+                console.log(registrationN)
+              // res.render('home', {registrationN})
 
-    // async function readUser (Person) {
-    //     let personresult = await pool.query('select * from Users where username =$1', [Person]);
-    //     return personresult.rows;
-    // }
-
-    // async function readCount (Person, curretCount) {
-    //     return curretCount.rows[0].greeted_count + 1;
-    // }
-
-    // async function greeter (Person, language) {
-    //     let user = await readUser(Person);
-    //     if (user.length !== 0) {
-    //         let newCount = user[0].greeted_count + 1; // await readCout(Person);
-
-    //         await upData(Person, newCount, language);
-    //     } else {
-    //         await putData(Person, language);
-    //     }
-    //     return language + ', ' + Person;
-    // }
-
-    // async function reset () {
-    //     await pool.query('delete  from  Users');
-    // }
-
+}
     return {
-        // readUser,
-        // readCount,
-        // allCount,
+        putData,
         readData,
-        // greeter,
-        // reset
+        readTown
+
+
     };
 };

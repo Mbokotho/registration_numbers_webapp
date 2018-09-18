@@ -1,32 +1,20 @@
 
 
-<center> <div>
+<center> <div id= "header">
       <h1 style="color:white;">Registration Numbers</h1>
     </div></center>
-    
-  
+
 <div class="row">
   <div class = "twelve columns">
  <center> <form class="" action="/reg_numbers" method="post">
     <label for="">Please  Enter Registration Number </label>
-    <input type="text" name="number" value="" placeholder="eg. CA 45569" ></div>
-    <button class="button-primary" type="submit" name="button">ADD</button>
-  </form></center>
-  <form class="" action="/clear" method="post" style="float: right;">
-      <button class="button-primary" type="submit" name="button"> Clear</button>
-</form>
-</div>
-{{!-- 
-<center>
-  <form class="" action="/reg_numbers" method="post">
-    <label for="">Please  Enter Registration Number </label>
     <input type="text" name="number" value="" placeholder="eg. CA 45569" >
     <button class="button-primary" type="submit" name="button">ADD</button>
-  </div></form>
-  </center> --}}
-
-
+  </form></center>
+</div>
+</div>
 <center>
+
 <form class ="" action="/regnumbers" method="POST">
   <input type="radio" name="Town" class="LanguageRadio" value="All">
   <span class="label-body">All</span>
@@ -40,16 +28,21 @@
   <input type="radio" name="Town" class="LanguageRadio" value="CAW">
   <span class="label-body">George</span></center>
 
+  <div class="row">
   <center><button class="button-primary" type="submit" name="button">SHOW</button></center>
 </form></center>
+<center>  <form class="" action="/clear" method="post">
+      <button class="button-primary" type="submit" name="button"> Clear</button>
+ </form></center>
+</div>
 
-<div class="row" >
+
+<div  id = "header" class="row" >
   <div class="twelve columns">
     {{#each registrationN}}
-  
+
        <div class ="registration">{{reg}}</div>
-  
+
     {{/each}}
     </div>
     </div>
-  
