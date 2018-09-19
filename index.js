@@ -60,52 +60,6 @@ let getReg = regRoutes(pool);
 app.get('/', getReg.home);
 app.post('/reg_numbers', getReg.registrations);
 app.post('/regnumbers', getReg.Townz);
-// async function(req, res){
-// //
-//     const myTown = req.body.Town;
-
-//     if (myTown ==='CA') {
-//     result = await pool.query('select id from towns where town_id=$1',['CA']);
-//     let id = result.rows[0].id;
-
-//     console.log(id);
-//     const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-//     console.log(mytowns.rows);
-//     let registrationN = mytowns.rows;
-
-//     res.render('home', {registrationN})
-//     }
-
-//     if (myTown ==='CJ') {
-//         result = await pool.query('select id from towns where town_id=$1',['CJ']);
-//         let id = result.rows[0].id;
-//         console.log(id);
-//         const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-//         console.log(mytowns.rows);
-//         let registrationN = mytowns.rows;
-//         res.render('home', {registrationN})
-//         }
-
-
-//         if (myTown ==='CAW') {
-//             result = await pool.query('select id from towns where town_id=$1',['CAW']);
-//             let id = result.rows[0].id;
-//             console.log(id);
-//             const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-//             console.log(mytowns.rows);
-//             let registrationN = mytowns.rows;
-//             res.render('home', {registrationN})
-//             }
-
-//     if (myTown ==='All') {
-//      let number = await pool.query('Select reg from RegistrationNumbers');
-//      let registrationN = number.rows;
-//         res.render('home', {registrationN})
-//         }
-
-
-
-// }
 
 app.post('/clear', async function (req, res) {
     await pool.query('delete  from  RegistrationNumbers');

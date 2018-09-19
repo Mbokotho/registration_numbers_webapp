@@ -16,10 +16,15 @@ module.exports = function(pool) {
     const regNumber = req.body.number;
     const reg_Number = regNumber.toUpperCase();
     const regCode = reg_Number.substring(0, 3).trim();
+    if (regNumber === '' || regCode !== reg_Number.substring(0,3).trim()) {
+      req.flash('info', 'Please enter a registration number in the correct format');
+    } 
+  else 
+  { 
     await getReg.putData(reg_Number,regCode);
-    res.redirect("/");
-    }
-   catch(err){}
+  }
+  res.redirect("/");
+}catch(err){}
 
     };
 
