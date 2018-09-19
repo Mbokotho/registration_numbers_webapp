@@ -23,18 +23,38 @@ module.exports = function(pool) {
 
     };
 
-//     async function filter(townId) {
-// try{
-//   const myTown = req.body.Town;
-//    // let myTown = townId;
-//    await getReg.readTown(townId)
-//   res.render('home', {registrationN})
-//
-// }catch(err){}
-//     }
+    async function Townz(req,res){
+      try{
+        const myTown = req.body.Town;
+
+        if (myTown === 'All') {
+      registrationN =  await getReg.readAll(myTown)
+      res.render("home", { registrationN});
+        }
+        if (myTown === 'CA') {
+      registrationN =  await getReg.readCPT(myTown)
+      res.render("home", { registrationN});
+        }
+
+      if (myTown === 'CJ') {
+        registrationN =  await getReg.readPaarl(myTown)
+        res.render("home", { registrationN});
+      }
+        if (myTown === 'CAW') {
+          registrationN =  await getReg.readGeorge(myTown)
+          res.render("home", { registrationN});
+       
+      }
+
+      }
+      catch(err){}
+    }
+
+
 
   return {
     home,
-    registrations
+    registrations,
+    Townz
   };
 };

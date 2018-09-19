@@ -24,15 +24,67 @@ async function   readTown(townId) {
               console.log(mytowns.rows);
               let registrationN = mytowns.rows;
               return registrationN;
-                console.log(registrationN)
-              // res.render('home', {registrationN})
+              console.log(registrationN)          
 
 }
+
+async function readCPT(myTown){
+    if (myTown ==='CA') {
+        result = await pool.query('select id from towns where town_id=$1',['CA']);
+        let id = result.rows[0].id;
+        console.log(id);
+        const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+        console.log(mytowns.rows);
+        let registrationN = mytowns.rows;
+        return registrationN
+}
+};
+
+async function readGeorge(myTown){
+    if (myTown ==='CAW') {
+        result = await pool.query('select id from towns where town_id=$1',['CAW']);
+        let id = result.rows[0].id;
+        console.log(id);
+        const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+        console.log(mytowns.rows);
+        let registrationN = mytowns.rows;
+        return registrationN
+}  
+};
+
+async function readPaarl(myTown){
+    if (myTown ==='CJ') {
+        result = await pool.query('select id from towns where town_id=$1',['CJ']);
+        let id = result.rows[0].id;
+        console.log(id);
+        const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
+        console.log(mytowns.rows);
+        let registrationN = mytowns.rows;
+        return registrationN
+
+ 
+    }
+}
+
+async function readAll(myTown){
+
+ if (myTown ==='All') {
+      let number = await pool.query('Select reg from RegistrationNumbers');
+     let registrationN = number.rows;
+     return registrationN
+         }
+
+};
+
     return {
         putData,
         readData,
-        readTown
+        readTown,
+        readCPT,
+        readGeorge,
+        readPaarl,
+        readAll
 
 
-    };
+    }
 };
