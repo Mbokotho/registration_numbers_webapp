@@ -4,6 +4,7 @@ module.exports = function (pool) {
         let result = await pool.query('select * from RegistrationNumbers');
         return result.rows;
     }
+
     async function putData (reg_Number,regCode) {
         // let regCode = reg_Number.substring(0, 3).trim();
         if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW ')){
@@ -15,8 +16,8 @@ module.exports = function (pool) {
     } return reg_Number;
 
   };
-async function   readTown(townId) {
 
+async function   readTown(townId) {
               result = await pool.query('select id from towns where town_id=$1',[townId]);
               let id = result.rows[0].id;
               console.log(id);
