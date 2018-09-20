@@ -82,6 +82,17 @@ describe('Registrations widget', function () {
 
         assert.deepEqual(town,  [ { reg: 'CJ 124' }, { reg: 'CJ 123' } ]);  
     });  
+     
+    it('Should return registration number that are of the right format ', async function () {
+        let getReg = regService(pool);
+
+        await getReg.putData('CAW 1234','CAW');
+        await getReg.putData('C J 124','CJ');
+        await getReg.putData('C J 123','CJ');
+        RegiNum = await getReg.readAll('All')
+
+        assert.deepEqual(RegiNum, [ { reg: 'CAW 1234' } ] );
+    });
 
     after(function () {
         pool.end();
