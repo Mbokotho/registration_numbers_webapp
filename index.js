@@ -65,8 +65,8 @@ app.post('/clear', async function (req, res) {
     await pool.query('delete  from  RegistrationNumbers');
     res.redirect('/');
 });
-let PORT = process.env.PORT || 3010;
 
+let PORT = process.env.PORT || 3010;
 app.listen(PORT, function () {
     console.log('App starting on port', PORT);
 });

@@ -8,7 +8,7 @@
   <div class = "twelve columns">
  <center> <form class="" action="/reg_numbers" method="post">
     <label for="">Please  Enter Registration Number </label>
-    <input type="text" name="number" value="" placeholder="eg. CA 45569" >
+    <input type="text" name="number" value="" placeholder="eg. CA 45569"  maxlength="10" >
     <button class="button-primary" type="submit" name="button">ADD</button>
   </form></center>
 </div>
@@ -16,7 +16,7 @@
 <center>
 
   {{#if messages.info}}
-  <h1 style="color:red;font-style: italic;">{{messages.info}}</h1>
+  <h4 style="color:red;font-style: italic;">{{messages.info}}</h4>
   {{/if}}
 
 
