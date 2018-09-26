@@ -19,10 +19,10 @@ module.exports = function(pool) {
     if (regNumber === '' || regCode !== reg_Number.substring(0,3).trim()) {
       req.flash('info', 'Please enter a registration number.')
     } 
-  else if( regCode !== reg_Number.substring(0, 3).trim(regNumber))
-  { req.flash('info', 'Please enter a registration number in the correct format i.e (CA 123456)');
-    // await getReg.putData(reg_Number,regCode);
-  }
+  // else if( regCode !== reg_Number.substring(0, 3).trim(regNumber))
+  // { req.flash('info', 'Please enter a registration number in the correct format i.e (CA 123456)');
+  //   // await getReg.putData(reg_Number,regCode);
+  // }
   else{
     await getReg.putData(reg_Number,regCode);
   }
