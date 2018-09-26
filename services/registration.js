@@ -9,7 +9,6 @@ module.exports = function (pool) {
         // let regCode = reg_Number.substring(0, 3).trim();
         if(reg_Number.startsWith('CA ') || reg_Number.startsWith('CJ ')||reg_Number.startsWith('CAW ')){
         let result = await pool.query('SELECT * FROM RegistrationNumbers WHERE reg=$1', [reg_Number]);
-        console.log(result);
         if (result.rowCount === 0) {
           let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
         
@@ -23,12 +22,10 @@ module.exports = function (pool) {
 async function   readTown(townId) {
               result = await pool.query('select id from towns where town_id=$1',[townId]);
               let id = result.rows[0].id;
-              console.log(id);
               const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-              console.log(mytowns.rows);
               let registrationN = mytowns.rows;
               return registrationN;
-              console.log(registrationN)          
+                     
 
 }
 
@@ -36,9 +33,7 @@ async function readCPT(myTown){
     if (myTown ==='CA') {
         result = await pool.query('select id from towns where town_id=$1',['CA']);
         let id = result.rows[0].id;
-        console.log(id);
         const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-        console.log(mytowns.rows);
         let registrationN = mytowns.rows;
         return registrationN
 }
@@ -47,10 +42,8 @@ async function readCPT(myTown){
 async function readGeorge(myTown){
     if (myTown ==='CAW') {
         result = await pool.query('select id from towns where town_id=$1',['CAW']);
-        let id = result.rows[0].id;
-        console.log(id);
+        let id = result.rows[0].id
         const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-        console.log(mytowns.rows);
         let registrationN = mytowns.rows;
         return registrationN
 }  
@@ -59,10 +52,8 @@ async function readGeorge(myTown){
 async function readPaarl(myTown){
     if (myTown ==='CJ') {
         result = await pool.query('select id from towns where town_id=$1',['CJ']);
-        let id = result.rows[0].id;
-        console.log(id);
+        let id = result.rows[0].id
         const mytowns =  await pool.query('select reg from RegistrationNumbers where town_id =$1',[id]);
-        console.log(mytowns.rows);
         let registrationN = mytowns.rows;
         return registrationN
 
