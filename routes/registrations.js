@@ -16,7 +16,7 @@ module.exports = function(pool) {
     const regNumber = req.body.number;
     const reg_Number = regNumber.toUpperCase();
     const regCode = reg_Number.substring(0, 3).trim();
-    if (regNumber === '' || regCode !== reg_Number.substring(0,3).trim()) {
+    if (regNumber === '' ) {
       req.flash('info', 'Please enter a registration number.')
     } 
   // else if( regCode !== reg_Number.substring(0, 3).trim(regNumber))

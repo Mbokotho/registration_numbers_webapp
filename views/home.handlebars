@@ -8,7 +8,7 @@
   <div class = "twelve columns">
  <center> <form class="" action="/reg_numbers" method="post">
     <label for="">Please  Enter Registration Number </label>
-    <input type="text" name="number" value="" placeholder="eg. CA 45569"  maxlength="10" >
+    <input type="text" name="number" value="" placeholder="eg. CA 45569"  maxlength="15" requiredpattern='[A-Z]{2,3}\s\d{3}\W\d{3}|[A-Z]{2,3}\s\d{2,3}' title="Example: CA 123-345"> 
     <button class="button-primary" type="submit" name="button">ADD</button>
   </form></center>
 </div>
