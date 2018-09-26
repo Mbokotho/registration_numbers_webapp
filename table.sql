@@ -1,4 +1,4 @@
-DROP \ TABLE IF EXISTS RegistrationNumbers, towns;
+DROP  TABLE IF EXISTS RegistrationNumbers, towns;
 
 create table towns(
     id serial not null primary key,
