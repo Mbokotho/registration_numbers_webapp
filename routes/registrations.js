@@ -17,7 +17,7 @@ module.exports = function(pool) {
     const reg_Number = regNumber.toUpperCase();
     const regCode = reg_Number.substring(0, 3).trim();
     if (regNumber === '' ) {
-      req.flash('info', 'Please enter a registration number.');
+      req.flash('info', 'Please enter a registration number that if from Paarl(CJ), CapeTown(CA) or George(CAW) !.');
     } 
   // else if( regCode !== reg_Number.substring(0, 3).trim(regNumber))
   // { req.flash('info', 'Please enter a registration number in the correct format i.e (CA 123456)');
