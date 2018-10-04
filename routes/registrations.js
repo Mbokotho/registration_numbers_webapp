@@ -16,16 +16,22 @@ module.exports = function(pool) {
     const regNumber = req.body.number;
     const reg_Number = regNumber.toUpperCase();
     const regCode = reg_Number.substring(0, 3).trim();
-    if (regNumber === '' ) {
-      req.flash('info', 'Please enter a registration number that if from Paarl(CJ), CapeTown(CA) or George(CAW) !.');
+
+    if (regNumber === '') {
+      req.flash('info', 'Please enter a registration number that is from Paarl(CJ), CapeTown(CA) or George(CAW) !.');
     } 
-  // else if( regCode !== reg_Number.substring(0, 3).trim(regNumber))
-  // { req.flash('info', 'Please enter a registration number in the correct format i.e (CA 123456)');
-  //   // await getReg.putData(reg_Number,regCode);
-  // }
-  else{
-    await getReg.putData(reg_Number,regCode);
+   else if(reg_Number.startsWith('CY') || reg_Number.startsWith('CL') || reg_Number.startsWith('CF') || reg_Number.startsWith('CK')) { 
+    req.flash('info','Invalid registaration number entered !');
   }
+
+  else if(await getReg.Duplicates(reg_Number)=== reg_Number){
+    req.flash('info','Registration Number has been added already ! ');
+  }
+  
+   else {
+     await getReg.putData(reg_Number,regCode);  
+   } 
+  
   
   res.redirect("/");
 }catch(err){}
