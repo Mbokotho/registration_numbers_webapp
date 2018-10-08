@@ -25,6 +25,7 @@ describe('Registrations widget', function () {
 
     it('Should return the entered registration number', async function () {
         let getReg = regService(pool);
+        
         RegiNum= await getReg.putData('CA 123','CA');
         assert.strictEqual(RegiNum, 'CA 123');
     });

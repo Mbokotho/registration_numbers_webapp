@@ -16,11 +16,14 @@ module.exports = function(pool) {
     const regNumber = req.body.number;
     const reg_Number = regNumber.toUpperCase();
     const regCode = reg_Number.substring(0, 3).trim();
+    
+    let code = await getReg.Invalid(regCode);
+    console.log(code);
 
     if (regNumber === '') {
       req.flash('info', 'Please enter a registration number that is from Paarl(CJ), CapeTown(CA) or George(CAW) !.');
     } 
-   else if(reg_Number.startsWith('CY') || reg_Number.startsWith('CL') || reg_Number.startsWith('CF') || reg_Number.startsWith('CK')) { 
+   else if(code === 0) { 
     req.flash('info','Invalid registaration number entered !');
   }
 

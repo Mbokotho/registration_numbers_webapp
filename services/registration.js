@@ -12,7 +12,7 @@ module.exports = function (pool) {
         if (result.rowCount === 0) {
           let TownId = await pool.query('SELECT id FROM towns WHERE town_id=$1', [regCode]);
           result = await pool.query('INSERT INTO RegistrationNumbers (reg, town_id) VALUES ($1, $2)', [reg_Number,TownId.rows[0].id]);
-        //   return reg_Number
+        
         }
 
     } return reg_Number
@@ -55,7 +55,7 @@ async function readPaarl(myTown){
         let registrationN = mytowns.rows;
         return registrationN
 
- 
+
     }
 }
 
@@ -74,10 +74,15 @@ async function Duplicates(reg_Number){
     if(result.rowCount === 1){
      return result.rows[0].reg ;
     }
+}
+    async function Invalid(regCode) {
+        result = await pool.query('SELECT * FROM towns WHERE town_id=$1', [regCode]);
+        return result.rowCount
     }
 
 
     return {
+        Invalid,
         putData,
         readData,
         readTown,
